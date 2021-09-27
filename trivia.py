@@ -3,7 +3,7 @@
 class Game:
     def __init__(self):
         self.players = []
-        self.places = [0] * 6
+        self.places = [0] * 6 #list of 6 0's
         self.purses = [0] * 6
         self.in_penalty_box = [0] * 6
 
@@ -82,16 +82,15 @@ class Game:
 
     @property
     def _current_category(self):
-        if self.places[self.current_player] == 0: return 'Pop'
-        if self.places[self.current_player] == 4: return 'Pop'
-        if self.places[self.current_player] == 8: return 'Pop'
-        if self.places[self.current_player] == 1: return 'Science'
-        if self.places[self.current_player] == 5: return 'Science'
-        if self.places[self.current_player] == 9: return 'Science'
-        if self.places[self.current_player] == 2: return 'Sports'
-        if self.places[self.current_player] == 6: return 'Sports'
-        if self.places[self.current_player] == 10: return 'Sports'
-        return 'Rock'
+        if self.places[self.current_player] % 4 == 0: #fixed this mess
+	        return 'Pop'
+        elif self.places[self.current_player] % 4 == 1:
+	        return 'Science'
+        elif self.places[self.current_player] % 4 == 2:
+	        return 'Sports'
+        else:
+	        return 'Rock'
+
 
     def was_correctly_answered(self):
         if self.in_penalty_box[self.current_player]:
@@ -117,7 +116,7 @@ class Game:
 
         else:
 
-            print("Answer was corrent!!!!")
+            print("Answer was correct!!!!")
             self.purses[self.current_player] += 1
             print(self.players[self.current_player] + \
                 ' now has ' + \
@@ -143,7 +142,7 @@ class Game:
         return not (self.purses[self.current_player] == 6)
 
 
-from random import randrange
+from random import randrange #test without randomness
 
 if __name__ == '__main__':
     not_a_winner = False
@@ -155,9 +154,9 @@ if __name__ == '__main__':
     game.add('Sue')
 
     while True:
-        game.roll(randrange(5) + 1)
+        game.roll(randrange(5) + 1)  #this ain't working - answer is always correct.
 
-        if randrange(9) == 7:
+        if randrange(9) == 7: #get rid of this
             not_a_winner = game.wrong_answer()
         else:
             not_a_winner = game.was_correctly_answered()
