@@ -2,10 +2,11 @@
 
 class Game:
     def __init__(self):
+        list_size = 6
         self.players = []
-        self.places = [0] * 6 #list of 6 0's
-        self.purses = [0] * 6
-        self.in_penalty_box = [0] * 6
+        self.places = [0] * list_size #list of 6 0's
+        self.purses = [0] * list_size
+        self.in_penalty_box = [0] * list_size
 
         self.pop_questions = []
         self.science_questions = []
@@ -13,24 +14,25 @@ class Game:
         self.rock_questions = []
 
         self.current_player = 0
-        self.is_getting_out_of_penalty_box = False
+        self.out_penalty_box = False
 
         for i in range(50):
             self.pop_questions.append("Pop Question %s" % i)
             self.science_questions.append("Science Question %s" % i)
             self.sports_questions.append("Sports Question %s" % i)
-            self.rock_questions.append(self.create_rock_question(i))
+            #self.rock_questions.append(self.create_rock_question(i))
+            self.rock_questions.append("Rock Question %s" % i)
 
-    def create_rock_question(self, index):
-        return "Rock Question %s" % index
+    # def create_rock_question(self, index): #doesn't seem necessary
+    #     return "Rock Question %s" % index
 
-    def is_playable(self):
+    def is_playable(self): #never called
         return self.how_many_players >= 2
 
     def add(self, player_name):
         self.players.append(player_name)
-        self.places[self.how_many_players] = 0
-        self.purses[self.how_many_players] = 0
+        # self.places[self.how_many_players] = 0  #I don't see the use of these...
+        # self.purses[self.how_many_players] = 0
         self.in_penalty_box[self.how_many_players] = False
 
         print(player_name + " was added")
@@ -48,7 +50,7 @@ class Game:
 
         if self.in_penalty_box[self.current_player]:
             if roll % 2 != 0:
-                self.is_getting_out_of_penalty_box = True
+                self.out_penalty_box = True
 
                 print("%s is getting out of the penalty box" % self.players[self.current_player])
                 self.places[self.current_player] = self.places[self.current_player] + roll
@@ -62,9 +64,9 @@ class Game:
                 self._ask_question()
             else:
                 print("%s is not getting out of the penalty box" % self.players[self.current_player])
-                self.is_getting_out_of_penalty_box = False
+                self.alty_ = False
         else:
-            self.places[self.current_player] = self.places[self.current_player] + roll
+            self.places[self.current_player] = self.places[self.current_player] + roll #this and next 8 lines are repeats
             if self.places[self.current_player] > 11:
                 self.places[self.current_player] = self.places[self.current_player] - 12
 
@@ -93,8 +95,8 @@ class Game:
 
 
     def was_correctly_answered(self):
-        if self.in_penalty_box[self.current_player]:
-            if self.is_getting_out_of_penalty_box:
+        if self.in_penalty_box[self.current_player]: #huh? if what?
+            if self.alty_: #another problem. not equal or greater or less then or whatnot.
                 print('Answer was correct!!!!')
                 self.purses[self.current_player] += 1
                 print(self.players[self.current_player] + \
@@ -144,7 +146,7 @@ class Game:
 
 from random import randrange #test without randomness
 
-if __name__ == '__main__':
+if __name__ == '__main__': #is this line necessary?
     not_a_winner = False
 
     game = Game()
