@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
 class Game:
+
+    MAX_PLAYERS = 6
+
     def __init__(self):
         self.players = []
-        self.places = [0] * 6
+        self.places = [0] * MAX_PLAYERS
         self.purses = [0] * 6
         self.in_penalty_box = [0] * 6
 
@@ -25,13 +28,13 @@ class Game:
         return "Rock Question %s" % index
 
     def is_playable(self):
-        return self.how_many_players >= 2
+        return self.num_players >= 2
 
     def add(self, player_name):
         self.players.append(player_name)
-        self.places[self.how_many_players] = 0
-        self.purses[self.how_many_players] = 0
-        self.in_penalty_box[self.how_many_players] = False
+        self.places[self.num_players] = 0
+        self.purses[self.num_players] = 0
+        self.in_penalty_box[self.num_players] = False
 
         print(player_name + " was added")
         print("They are player number %s" % len(self.players))
@@ -39,12 +42,12 @@ class Game:
         return True
 
     @property
-    def how_many_players(self):
+    def num_players(self):
         return len(self.players)
 
     def roll(self, roll):
         print("%s is the current player" % self.players[self.current_player])
-        print("They have rolled a %s" % roll)
+        print("They have rolled a" + str(roll))
 
         if self.in_penalty_box[self.current_player]:
             if roll % 2 != 0:
