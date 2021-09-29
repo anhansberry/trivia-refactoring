@@ -158,6 +158,7 @@ if __name__ == '__main__':
     game.add('Sue')
 
     while True:
+        # removing randomness
         game.roll(randrange(5) + 1)
 
         if randrange(9) == 7:
