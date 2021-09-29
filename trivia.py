@@ -64,7 +64,7 @@ class Game:  #add new player class - inside initialize for game - throw player i
                 self._ask_question()
             else:
                 print("%s is not getting out of the penalty box" % self.players[self.current_player])
-                self.alty_ = False
+                self.out_penalty_box = False
         else:
             self.places[self.current_player] = self.places[self.current_player] + roll #this and next 8 lines are repeats
             if self.places[self.current_player] > 11:
@@ -96,7 +96,7 @@ class Game:  #add new player class - inside initialize for game - throw player i
 
     def was_correctly_answered(self):
         if self.in_penalty_box[self.current_player]: #huh? if what?
-            if self.alty_: #another problem. not equal or greater or less then or whatnot.
+            if self.out_penalty_box: #another problem. not equal or greater or less then or whatnot.
                 print('Answer was correct!!!!')
                 self.purses[self.current_player] += 1
                 print(self.players[self.current_player] + \
