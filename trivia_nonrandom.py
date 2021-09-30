@@ -24,17 +24,17 @@ class Game:  #add new player class - inside initialize for game - throw player i
 
     def add(self, player_name):
         self.players.append(player_name)
-        self.places[self.how_many_players] = 0  #needs to stay
+        self.places[self.how_many_players] = 0  #needs to stay - places and purses initialized for player at 0.
         self.purses[self.how_many_players] = 0
-        self.in_penalty_box[self.how_many_players] = False
+        self.in_penalty_box[self.how_many_players] = False #new player added is not in penalty box
 
         print(player_name + " was added")
         print("They are player number %s" % len(self.players))
 
         return True
     def update_places(self, roll):
-        self.places[self.current_player] = self.places[self.current_player] + roll
-        if self.places[self.current_player] > 11:
+        self.places[self.current_player] = self.places[self.current_player] + roll #whatever is rolled is added to the places
+        if self.places[self.current_player] > 11: # capped at 11 - goes back to about 0 after give or take a few.
             self.places[self.current_player] = self.places[self.current_player] - 12
 
         print(self.players[self.current_player] + \
@@ -83,8 +83,8 @@ class Game:  #add new player class - inside initialize for game - throw player i
 
 
     def was_correctly_answered(self):
-        if self.in_penalty_box[self.current_player]: #huh? if what?
-            if self.out_penalty_box: #another problem. not equal or greater or less then or whatnot.
+        if self.in_penalty_box[self.current_player]: #if in penalty box is true
+            if self.out_penalty_box: #if out of pen box is true
                 print('Answer was correct!!!!')
                 self.purses[self.current_player] += 1
                 print(self.players[self.current_player] + \
