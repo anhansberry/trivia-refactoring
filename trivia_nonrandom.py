@@ -51,7 +51,7 @@ class Game:  #add new player class - inside initialize for game - throw player i
         print("%s is the current player" % self.players[self.current_player]) #print current player
         print("They have rolled a %s" % roll) # what player rolled - some num from 1-5
 
-        if self.in_penalty_box[self.current_player]:
+        if self.in_penalty_box[self.current_player]:#this implies if in_penalty_box[] = true
             if roll % 2 != 0:
                 self.out_penalty_box = True
 
