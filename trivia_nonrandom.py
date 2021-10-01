@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 
-class Game:  #add new player class - inside initialize for game - throw player in there
-    def __init__(self):
+class Game:
+    def __init__(self): #works
         self.players = []
-        # list_size = 6
-        # self.players = []
-        # self.places = [0] * list_size #list of 6 0's
-        # self.purses = [0] * list_size
-        # self.in_penalty_box = [0] * list_size
 
         self.pop_questions = []
         self.science_questions = []
@@ -23,25 +18,19 @@ class Game:  #add new player class - inside initialize for game - throw player i
             self.sports_questions.append("Sports Question %s" % i)
             self.rock_questions.append("Rock Question %s" % i)
 
-    def add(self, player_name):
-        # self.players.append(player_name)
-        # self.places[self.how_many_players] = 0  #needs to stay - places and purses initialized for player at 0.
-        # self.purses[self.how_many_players] = 0
-        # self.in_penalty_box[self.how_many_players] = False #new player added is not in penalty box
+    def add(self, player_name): #works
         new_player = Player(player_name)
         self.players.append(new_player)
         print(player_name + " was added")
         print("They are player number %s" % len(self.players))
 
         return True
-    def update_places(self, roll):
+
+    def update_places(self, roll): #works
         current = self.players[self.current_player]
         current.places += roll
-        # self.places[self.current_player] = self.places[self.current_player] + roll #whatever is rolled is added to the places
-        # if self.places[self.current_player] > 11: # capped at 11 - goes back to about 0 after give or take a few.
         if current.places > 11:
             current.places = current.places - 12
-# i made current a str in line below
         print(str(current.name) + \
                     '\'s new location is ' + \
                     str(current.places)) 
@@ -49,15 +38,14 @@ class Game:  #add new player class - inside initialize for game - throw player i
         self._ask_question()
         
     @property
-    def how_many_players(self):
+    def how_many_players(self): #works
         return len(self.players)
 
-    def roll(self, roll):
+    def roll(self, roll): #works
         current = self.players[self.current_player]
         print("%s is the current player" % current.name) #print current player
         print("They have rolled a %s" % roll) # what player rolled - some num from 1-5
 
-        # if self.in_penalty_box[self.current_player]:#this implies if in_penalty_box[] = true
         if current.in_penalty_box:
             if roll % 2 != 0:
                 self.out_penalty_box = True
@@ -71,14 +59,14 @@ class Game:  #add new player class - inside initialize for game - throw player i
         else:
             self.update_places(roll)
 
-    def _ask_question(self):
+    def _ask_question(self): #works
         if self._current_category == 'Pop': print(self.pop_questions.pop(0))
         if self._current_category == 'Science': print(self.science_questions.pop(0))
         if self._current_category == 'Sports': print(self.sports_questions.pop(0))
         if self._current_category == 'Rock': print(self.rock_questions.pop(0))
 
     @property
-    def _current_category(self): #good
+    def _current_category(self): #works
         current = self.players[self.current_player]
         if current.places % 4 == 0: 
 	        return 'Pop'
@@ -88,16 +76,8 @@ class Game:  #add new player class - inside initialize for game - throw player i
 	        return 'Sports'
         else:
 	        return 'Rock'
-        # if self.places[self.current_player] % 4 == 0: 
-	    #     return 'Pop'
-        # elif self.places[self.current_player] % 4 == 1:
-	    #     return 'Science'
-        # elif self.places[self.current_player] % 4 == 2:
-	    #     return 'Sports'
-        # else:
-	    #     return 'Rock'
 
-    def correct_answer_str(self):
+    def correct_answer_str(self): 
         current = self.players[self.current_player]
         print('Answer was correct!!!!')
         current.purses += 1
@@ -166,9 +146,8 @@ if __name__ == '__main__': #is this line necessary?
 
     dice = 1
     win = 0
-
     while True:
-        game.roll(dice)  #answer is always correct. - 1-5
+        game.roll(dice)
         dice+=1
         if dice > 5:
             dice = 1
