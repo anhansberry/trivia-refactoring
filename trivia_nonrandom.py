@@ -42,7 +42,7 @@ class Game:  #add new player class - inside initialize for game - throw player i
         if current.places > 11:
             current.places = current.places - 12
 # i made current a str in line below
-        print(str(current) + \
+        print(str(current.name) + \
                     '\'s new location is ' + \
                     str(current.places)) 
         print("The category is %s" % self._current_category)
@@ -54,7 +54,7 @@ class Game:  #add new player class - inside initialize for game - throw player i
 
     def roll(self, roll):
         current = self.players[self.current_player]
-        print("%s is the current player" % current) #print current player
+        print("%s is the current player" % current.name) #print current player
         print("They have rolled a %s" % roll) # what player rolled - some num from 1-5
 
         # if self.in_penalty_box[self.current_player]:#this implies if in_penalty_box[] = true
@@ -97,49 +97,37 @@ class Game:  #add new player class - inside initialize for game - throw player i
         # else:
 	    #     return 'Rock'
 
+    def correct_answer_str(self):
+        current = self.players[self.current_player]
+        print('Answer was correct!!!!')
+        current.purses += 1
+        print(current.name + \
+                    ' now has ' + \
+                    str(current.purses) + \
+                    ' Gold Coins.')
+
+        winner = self._did_player_win()
+        self.current_player += 1 # could prob just put after conditional
+        if self.current_player == len(self.players):
+            self.current_player = 0
+        return winner
 
     def was_correctly_answered(self):
         current = self.players[self.current_player]
         if current.in_penalty_box: #if in penalty box is true
             if self.out_penalty_box: #if out of pen box is true 
-                print('Answer was correct!!!!') #this - including line above - is repeated below...
-                current.purses += 1
-                print(current + \
-                    ' now has ' + \
-                    str(current.purses) + \
-                    ' Gold Coins.')
-
-                winner = self._did_player_win()
-                self.current_player += 1 # could prob just put after conditional
-                if self.current_player == len(self.players): self.current_player = 0
-
-                return winner
+                self.correct_answer_str()
             else:
                 self.current_player += 1 # merge w this one
                 if self.current_player == len(self.players): self.current_player = 0
                 return True
-
-
-
         else:
-
-            print("Answer was correct!!!!")
-            current.purses += 1 #cant turn player into string line 130
-            print(current + \
-                ' now has ' + \
-                str(current.purses) + \
-                ' Gold Coins.')
-
-            winner = self._did_player_win()
-            self.current_player += 1
-            if self.current_player == len(self.players): self.current_player = 0
-
-            return winner
-
+            self.correct_answer_str()
+    
     def wrong_answer(self):
         current = self.players[self.current_player]
         print('Question was incorrectly answered')
-        print(current + " was sent to the penalty box")
+        print(current.name + " was sent to the penalty box")
         current.in_penalty_box = True
 
         self.current_player += 1
