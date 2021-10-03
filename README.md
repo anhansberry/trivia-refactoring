@@ -1,1 +1,4 @@
 # trivia-refactoring
+what I did:
+
+First of all, I got rid of unnecessary code - particularly functions that were not being used at all. Also, I got rid of a lot of repetition. If I saw a bunch of lines of code that were repeats - I would drop them in a function and name it whatever it does. Also, I shortened up the current category function by using modulo to figure out where you were. I also created a new Player class so I could get rid of the many confusing lists on the different purses, locations, etc. for each player, and instead I could just use current."whatever var name" to find it - it was much simpler this way.
