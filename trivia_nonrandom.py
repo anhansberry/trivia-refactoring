@@ -119,7 +119,7 @@ class Game:
         return not (current.purses == 6)
 
 
-from random import randrange #test without randomness
+from random import randrange 
 
 class Player:
     def __init__(self, name):
@@ -128,15 +128,8 @@ class Player:
         self.purses = 0
         self.in_penalty_box = False
 
-# class Questions:
-#     def __init__(self): #pop_questions, science_questions, sports_questions, rock_questions
-#         self.pop_questions = 0
-#         self.science_questions = 0
-#         self.sports_questions = 0
-#         self.rock_questions = 0
-
-if __name__ == '__main__': #is this line necessary?
-    not_a_winner = False #huh?
+if __name__ == '__main__':
+    not_a_winner = False
 
     game = Game()
 
