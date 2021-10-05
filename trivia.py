@@ -1,29 +1,14 @@
 #!/usr/bin/env python3
 
 class Game:
-    def __init__(self):
-        self.players = []
-        self.places = [0] * 6 # magc number and tells us whar
-        self.purses = [0] * 6
-        self.num_players = [0] * 6
-
-        self.pop_questions = []
-        self.science_questions = []
-        self.sports_questions = []
-        self.rock_questions = []
-
+    max_players = 6 
+    def __init__(self, Player, Question):
+        max_players = 6 
+        self.players = [] #add each player from created in Player class??
+        self.num_players = [0] * max_players
         self.current_player = 0
-        self.in_penalty_box = False
-
-        for i in range(50):
-            self.pop_questions.append("Pop Question %s" % i)
-            self.science_questions.append("Science Question %s" % i)
-            self.sports_questions.append("Sports Question %s" % i)
-            self.rock_questions.append(self.create_rock_question(i))
-
-    def create_rock_question(self, index):
-        return "Rock Question %s" % index
-
+    
+    
     def is_playable(self):
         return self.how_many_players >= 2
 
@@ -152,12 +137,16 @@ if __name__ == '__main__':#when ths file is ran
     game.add('Pat')
     game.add('Sue')
 
-    while True:
-        game.roll(randrange(5) + 1)
+    dice = 0
+    win_num = 0 
 
-        if randrange(9) == 7:
+    while True:
+        game.roll(dice +1 )
+        dice = ( dice +1)%5
+        if win_num == 7:
             not_a_winner = game.wrong_answer()
         else:
             not_a_winner = game.was_correctly_answered()
-
+            
+        win_num = (win_num + 1)%9
         if not not_a_winner: break
