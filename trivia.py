@@ -50,30 +50,14 @@ class Game:
         if current_player.status == True :
             if roll % 2 != 0:
                 current_player.status = False
-               
+                self.continue_roll(roll)
                 print("%s is getting out of the penalty box" % current_player.name)
-                current_player.places = current_player.places + roll
-                if current_player.places > 11:
-                    current_player.places =current_player.places - 12
-
-                print(current_player.name + \
-                            '\'s new location is ' + \
-                            str(current_player.places))
-                print("The category is %s" % self._current_category)
-                self._ask_question()
+        
             else:
                 print("%s is not getting out of the penalty box" % current_player.name)
                 current_player.status = False
         else:
-            current_player.places = current_player.places + roll
-            if current_player.places > 11:
-                current_player.places = current_player.places - 12
-
-            print(current_player.name + \
-                        '\'s new location is ' + \
-                        str(current_player.places))
-            print("The category is %s" % self.questions.current_category)
-            self.questions._ask_question()
+            self.continue_roll(roll)
 
     def was_correctly_answered(self):
         current_player = self.players[self.current_player]
@@ -85,14 +69,11 @@ class Game:
                 str(current_player.purse) + \
                 ' Gold Coins.')
             winner = self._did_player_win()
-            self.current_player += 1
-            if self.current_player == len(self.players): self.current_player = 0
+            self.advance_current_player()
             return winner
 
         else:
-            self.current_player += 1
-            if self.current_player == len(self.players): 
-                self.current_player = 0
+            self.advance_current_player()
             return True
 
     def wrong_answer(self):
@@ -100,14 +81,29 @@ class Game:
         current_player = self.players[self.current_player]
         print(current_player.name + " was sent to the penalty box")
 
-        self.current_player += 1
-        if self.current_player == len(self.players): self.current_player = 0
+        self.advance_current_player()
         return True
 
     def _did_player_win(self):
         current_player = self.players[self.current_player]
         return not (current_player.purse == 6)
 
+    def advance_current_player(self):
+        self.current_player += 1
+        if self.current_player == len(self.players): 
+            self.current_player = 0
+
+
+    def continue_roll(self, roll):
+        current_player = self.players[self.current_player]
+        current_player.places = current_player.places + roll
+        if current_player.places > 11:
+            current_player.places = current_player.places - 12
+            print(current_player.name + \
+                '\'s new location is ' + \
+                    str(current_player.places))
+            print("The category is %s" %  self.questions.current_category)
+            self.questions._ask_question()
 
 from random import randrange
 
