@@ -1,23 +1,22 @@
 class Question:
-    def __init__(self, pop, rock, sports, science):
+    def __init__(self):
         self.pop = []
         self.science = []
         self.sports = []
         self.rock = []
-        types = [self.pop, self.rock, self.sports, self.science]
-        type_name = ["pop","rock","sports","science"]
+        self.types = [self.pop, self.rock, self.sports, self.science]
+        self.type_name = ["pop","rock","sports","science"]
+        self.current_category = ""
     
     def create_question(self,types, type_name):
         for x in range(4):
             for i in range(50):
                 self.types[x].append(self.type_name[x], "Question" , i)
     
-    def select_category(self): # second change
-            if self.places[self.current_player]% 4 == 0: 
-                return 'Pop'
-            elif self.places[self.current_player]% 5 == 1: 
-                return 'Science'
-            elif self.places[self.current_player]% 6 == 2:
-                return 'Sports'
-            else:
-                return 'Rock'
+
+    
+    def _ask_question(self):
+        if self.current_category == 'Pop': print(self.pop_questions.pop(0))
+        if self.current_category == 'Science': print(self.science_questions.pop(0))
+        if self.current_category == 'Sports': print(self.sports_questions.pop(0))
+        if self.current_category == 'Rock': print(self.rock_questions.pop(0))
